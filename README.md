@@ -3,8 +3,8 @@ Repository for harp users to share scripts
 
 ## How to contribute
 - Fork this repository
-- Clone the repository to your local system
-- Add a directory with a descriptive name - you will make all of your change in this directory
+- Clone the forked repository to your local system
+- Add a directory with a descriptive name - you will make all of your changes in this directory
 - Under your new directory:
   - Make a README.md file briefly describing what is in the directory and the intended use case 
   - Make a directory called "R" and add your R scripts there, e.g. R/harpFun.R
