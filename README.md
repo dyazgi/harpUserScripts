@@ -5,10 +5,22 @@ Repository for harp users to share scripts
 - Fork this repository
 - Clone the forked repository to your local system
 - Add a directory with a descriptive name - you will make all of your changes in this directory
-- Under your new directory:
+- Under your new directory\:
   - Make a README.md file briefly describing what is in the directory and the intended use case 
   - Make a directory called "R" and add your R scripts there, e.g. R/harpFun.R
   - Make a directory called "man" and add documenation for each script using markdown, e.g. man/harpFun.md
+  - For other languages create directories:
+
+  <br>
+  
+  |Directory|Language|
+  |---|---|
+  |py|Python|
+  |c|C|
+  |cpp|C++|
+  |fortran|FORTRAN|
+  |scr|shell scripts|
+  
 - Commit changes to your local repository and push to your fork on github
 - From your fork on github, click on Contribute > Open Pull Request and follow the instructions
 
