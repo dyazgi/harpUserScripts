@@ -1,9 +1,10 @@
 # harpUserScripts
-Repository for harp users to share scripts
+Fork of [harpUserScripts](https://github.com/harphub/harpUserScripts) to use as draft repository
+for the ACCORD MQA harp scripts
+
+Following the same guidelines as in Andrew's repository.
 
 ## How to contribute
-- Fork this repository
-- Clone the forked repository to your local system
 - Add a directory with a descriptive name - you will make all of your changes in this directory
 - Under your new directory\:
   - Make a README.md file briefly describing what is in the directory and the intended use case 
