@@ -28,7 +28,7 @@ Repository for harp users to share scripts
 [Happy Git With R](https://happygitwithr.com)
 
 
-## harp standare verificationb set
+## harp standare verification set
 as a start:
 As a starting point, chose Carlos' UWC scripts for runnung harp.
 
