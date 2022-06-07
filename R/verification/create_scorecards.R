@@ -70,7 +70,7 @@ models_to_compare <- c(ref_model, fcst_model)
 selected_stations <- NULL #default
 
 #Function to do the whole calculation
-source("scorecard.R")
+source("fn_scorecard.R")
 
 # Calculation starts here
 
