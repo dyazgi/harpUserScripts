@@ -1,6 +1,9 @@
 #Section to define paths for the pre-processing
 # This section will be used by the scripts under pre_processing
 pre:
+  start_date: 2022050100
+  end_date: 2022053123
+  fclen: 48
   vfld_path: "/scratch/ms/ie/duuw/vfld_vobs_sample/vfld"
   vobs_path: "/scratch/ms/dk/nhd/vfld_vobs_sample/vobs"
   vfld_template:  #include one for each model if they are different. 

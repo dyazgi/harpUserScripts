@@ -8,30 +8,20 @@ library(yaml)
 parser <- ArgumentParser()
 
 
-parser$add_argument("-start_date", type="character",
-    default="None",
-    help="First date to process [default %(default)s]",
-    metavar="String")
-
-parser$add_argument("-end_date", type="character",
-    default="None",
-    help="Last date to process [default %(default)s]",
-    metavar="String")
-
 parser$add_argument("-config_file", type="character",
     default="config_examples/config.yml",
     help="Last date to process [default %(default)s]",
     metavar="String")
 
 args <- parser$parse_args()
-start_date <- args$start_date
-end_date <- args$end_date
 config_file <- args$config_file
 
 CONFIG <- yaml.load_file(here(config_file))
 
 # The following variables are expected to change for each user / use case
 # Some defined in config file above, some command-line arguments
+start_date <- CONFIG$pre$start_date
+end_date <- CONFIG$pre$end_date
 vobs_path   <- CONFIG$pre$vobs_path
 obs_path   <- CONFIG$verif$obs_path
 by_step         <- CONFIG$verif$by_step  #Read from config file
