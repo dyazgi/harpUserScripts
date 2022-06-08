@@ -29,7 +29,7 @@ Following the same guidelines as in Andrew's repository.
 [Happy Git With R](https://happygitwithr.com)
 
 
-## harp standare verification set
+## harp standard verification set
 as a start:
 As a starting point, chose Carlos' UWC scripts for runnung harp.
 
