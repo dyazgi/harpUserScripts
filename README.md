@@ -51,7 +51,7 @@ scores at stations as maps, ok,  may be issues inside harp det_verify.R (Nina)
 
 scatter plots
 
-scores as functions of valid time, also variables
+scores as functions of valid time, also variables (Carl)
 
 scores and variables as function of height(presure) (and time?)
 
@@ -80,7 +80,6 @@ input from grib-files:
 Florian
 
 scores as function of lead time, vertical coordinate
-
 Carl
 
 scatter plots
