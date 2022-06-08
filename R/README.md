@@ -39,3 +39,15 @@ The following packages are used here
 - tidyverse (note that parts of this package are included in harp, but not all!)
 - ggsci
 - pracma
+
+## harp versions
+The scripts have been tested with these versions of harp
+
+- harp_0.0.0.9034 
+- harpPoint_0.0.0.9105  
+- harpIO_0.0.0.9186     
+- harpSpatial_0.0.1.9003 
+- harpVis_0.0.0.9070    
+
+A forked version of harp based on these versions can be [found here](https://github.com/carlos9917/harp-20220607)
+
