@@ -31,9 +31,11 @@ Following the same guidelines as in Andrew's repository.
 
 ## harp standard verification set
 as a start:
-As a starting point, chose Carlos' UWC scripts for runnung harp.
+As a starting point, chose Carlos' UWC scripts for runnung harp. 
 
-Set up working environment:
+*Task: convert scripts into functions and eventually everything into a package 
+
+* Task Set up working environment:
 Copy input data to a convenient location
 
 Input: 
@@ -44,7 +46,7 @@ quality control based on preset tolerances for obs-fc (harp function)
 Features (available in Monitor):
 ok means available in the UWC-script
 
-Deterministic (for arbitrary station lists):
+*Tasks: Deterministic (for arbitrary station lists):
 scores as function of lead time, ok
 
 scores at stations as maps, ok,  may be issues inside harp det_verify.R (Nina)
@@ -69,7 +71,7 @@ Spatial verification:
 
 Degree of agreement, FSS
 
-Tasks:
+*Tasks:
 
 make available the UWC scripts
 
@@ -96,7 +98,7 @@ code review
 Nina, Gema
 
 
-documentation:
+*Task: documentation:
 
 everybody to provide documentation for their respective documentation
 
