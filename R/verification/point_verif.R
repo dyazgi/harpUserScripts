@@ -1,5 +1,9 @@
 #!/usr/bin/env Rscript
 
+# If you are using renv, uncomment these two lines:
+#print("Using renv. Loading environment")
+#renv::load("/home/nhd/R/harpUserScripts")
+
 # Basic script to run point verification and generate the corresponding rds files
 
 library(harp)
