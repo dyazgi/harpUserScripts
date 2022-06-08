@@ -4,7 +4,7 @@
 # 2) Much of the plotting below can just be carried out with harp's plot_point_verif. This script
 # was initally designed in order to have full control over the visualisation. 
 
-fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TRUE,cmap = "ggsci",
+fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TRUE,cmap = "Set2",
                                      table_SIDS = FALSE,compare_mbr000 = FALSE){
  
   #=================================================#
@@ -192,8 +192,8 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
   ens_spec   <- c("rank_histogram","reliability","roc","economic_value")
   
   # Useful strings
-  title_str = paste0(str_to_title(param)," : ",format(ymd_h(sdate),"%Y-%m-%d-%H")," - ",
-                     format(ymd_h(edate),"%Y-%m-%d-%H"))
+  title_str = paste0(str_to_title(param)," : ",format(str_datetime_to_datetime(sdate),"%Y-%m-%d-%H")," - ",
+                     format(str_datetime_to_datetime(edate),"%Y-%m-%d-%H"))
   
   # More useful attributes
   all_summary_scores   <- names(verif[[paste0(fcst_type,"_summary_scores")]])
@@ -219,15 +219,10 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
     fh_map <- 7.5
   }
   
-  # Define the colour scheme used in line plots.
-  if (cmap == "ggsci"){
-    cpal         <- pal_jco()(num_models)
-    mcolors      <- cpal
-  } else {
-    # Or use standard Brewer palletes
-    cpal         <- brewer.pal(max(num_models,3),cmap)
-    mcolors      <- cpal[1:num_models]
-  }
+  # Define the colour scheme used in line plots (using Rcolorbrewer)
+  cpal    <- brewer.pal(max(num_models,3),cmap)
+  mcolors <- cpal[1:num_models]
+  
   # Define the color table
   names(mcolors) <- model_names 
   
@@ -294,7 +289,7 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
     } else if (xgroup == "validdate"){
       xg_str <- "vd"
       scores <- scores_vd
-    } else if (xgroup == "validhour"){
+    } else if (xgroup == "valid_hour"){
       xg_str <- "vh"
       scores <- sscores_vh
     } else if (xgroup == "threshold"){
@@ -516,10 +511,10 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
                 }
                 
                 if (grepl("ctrl",score_orig)){
-                  verif_III[[3]] <- filter(verif_III[[3]],member == "mbr000",validhour == vhour)
+                  verif_III[[3]] <- filter(verif_III[[3]],member == "mbr000",valid_hour == vhour)
                   c_title_str <- paste0("Mbr000 : ",title_str)
                 } else {
-                  verif_III[[1]] <- filter(verif_III[[1]],validhour == vhour)
+                  verif_III[[1]] <- filter(verif_III[[1]],valid_hour == vhour)
                   c_title_str <- title_str
                 }
                 p_c <- fn_plot_map(verif_III,c_title_str,c_subtitle,fxoption_list,vroption_list)
@@ -577,7 +572,7 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
               
             } # if p_leadtime
             
-            if ((xgroup == "p_prof") & ("validhour" %in% cnames)){
+            if ((xgroup == "p_prof") & ("valid_hour" %in% cnames)){
               
               if (c_ind){
                 print(paste0("Working on xgroup: ",xgroup))
@@ -588,7 +583,7 @@ fn_plot_point_verif <- function(harp_verif_input,png_archive,plot_num_cases = TR
               
               for (vh in vhours){
                 
-                verif_III    <- filter_list(verif_II,validhour == vh)
+                verif_III    <- filter_list(verif_II,valid_hour == vh)
 
                 if (grepl("ctrl",score_orig)){
                   verif_III[[3]] <- filter(verif_III[[3]],member == "mbr000")
@@ -655,8 +650,8 @@ fn_check_verif <- function(df,verif,dfnames){
     leadtimes <- "NA"
   }
   # And check what validhours exist
-  if ("validhour" %in% dfnames){
-    validhours <- unique(df[["validhour"]])
+  if ("valid_hour" %in% dfnames){
+    validhours <- unique(df[["valid_hour"]])
   } else {
     validhours <- "NA"
   }
@@ -842,7 +837,7 @@ fn_sid_issue_table <- function(df,fxoption_list,vroption_list,vlt="NA",vth="NA")
   num_stations <- unique(df[[1]][["SID"]])
   stns_lrmse   <- df[[1]] %>% filter(mname == mnames[1]) %>% arrange(-rmse)
   ns_val       <- min(10,num_stations) # Info for 10 stations with largest rmse
-  stns_lrmse   <- stns_lrmse[1:ns_val,] %>% select("mname","validhour","fcst_cycle","SID","lat","lon","rmse","num_cases")
+  stns_lrmse   <- stns_lrmse[1:ns_val,] %>% select("mname","valid_hour","fcst_cycle","SID","lat","lon","rmse","num_cases")
   stns_lrmse[["rmse"]] <- round(stns_lrmse[["rmse"]],2)
   
   # Get corresponding png name

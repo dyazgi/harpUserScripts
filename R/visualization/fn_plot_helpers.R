@@ -36,7 +36,7 @@ fn_plot_point <- function(verif,title_str,subtitle_str,fxoption_list,vroption_li
   }
   
   # A check on the type of xgroup (in case of character type for leadtime and validhour)
-  if ((xgroup %in% names(df)) & (is.character(df[[xgroup]])) & ((xgroup == "leadtime") || (xgroup == "validhour"))){
+  if ((xgroup %in% names(df)) & (is.character(df[[xgroup]])) & ((xgroup == "leadtime") || (xgroup == "valid_hour"))){
     df[[xgroup]] <- as.numeric(df[[xgroup]])
   }
   
@@ -167,7 +167,7 @@ fn_plot_numcases <- function(verif,fxoption_list,vroption_list){
   }
   
   # A check on the type of xgroup (in case of character type for leadtime and validhour)
-  if ((xgroup %in% names(df)) & (is.character(df[[xgroup]])) & ((xgroup == "leadtime") || (xgroup == "validhour"))){
+  if ((xgroup %in% names(df)) & (is.character(df[[xgroup]])) & ((xgroup == "leadtime") || (xgroup == "valid_hour"))){
     df[[xgroup]] <- as.numeric(df[[xgroup]])
   }
   

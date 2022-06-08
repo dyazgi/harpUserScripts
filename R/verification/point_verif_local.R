@@ -7,10 +7,10 @@ library(purrr)
 library(here)
 library(argparse)
 library(yaml)
-library(tidyverse)
-library(RColorBrewer) # Some colourmaps
-library(lubridate) # For ymd functions
-library(ggsci) # For more colours (used by default)
+library(dplyr) # count, etc.
+library(stringr) # str_to_title
+library(forcats) # fcst_inorder
+library(RColorBrewer) # Some colourmaps (some of which are colourblind friendly)
 library(gridExtra) # For grid arrange
 library(grid) # For grid arrange
 library(pracma) # For logseq
@@ -78,7 +78,7 @@ grps <- list(c("leadtime","fcst_cycle"),"leadtime")
 # NB: May not be neccessary for updated version of harp
 fn_verif_rename <- function(df){
   for (ii in seq(1,length(df),1)){
-    for (var_rename in c("fcst_cycle","station_group","validhour")){
+    for (var_rename in c("fcst_cycle","station_group","valid_hour")){
       if (var_rename %in% names(df[[ii]])){
         v_avail <- unique(df[[ii]][[var_rename]])
         v_rename <- v_avail[grep(";",v_avail)]
@@ -107,7 +107,7 @@ fn_sid_latlon <- function(df,fc){
   return(df)
 }
 # Number of days considered
-num_days <- as.numeric(difftime(ymd_h(end_date),ymd_h(start_date),units="days"))
+num_days <- as.numeric(difftime(str_datetime_to_datetime(end_date),str_datetime_to_datetime(start_date),units="days"))
 
 # Some warnings in output
 # Warning from recycling prolly comes from
@@ -199,8 +199,10 @@ run_verif <- function(prm_info, prm_name) {
     grps
   )
 
-  # add validhour to fcst
-  fcst <- mutate_list(fcst,validhour=substr(YMDh(validdate),9,10))
+  # add valid_hour to fcst
+  #fcst <- mutate_list(fcst,valid_hour=substr(YMDh(validdate),9,10))
+  fcst <- expand_date(fcst,validdate) # Add in valid_year, valid_month, valid_day, valid_hour
+  fcst <- mutate_list(fcst,valid_hour = sprintf("%02d",valid_hour)) # Convert to character and pad
   # Remove stations that only occur very infrequently (for surface variables only)
   if (is.na(vertical_coordinate)){
     min_num_stations <- num_days # A first guess 
@@ -240,8 +242,8 @@ run_verif <- function(prm_info, prm_name) {
   
   # Do some additional verif depending on UA parameter
   if (!is.na(vertical_coordinate)){
-    # Group by validhour for profiles (threshold scores not required)
-    grps_vh  <- lapply(grps_c,function(x) gsub("leadtime","validhour",x))
+    # Group by valid_hour for profiles (threshold scores not required)
+    grps_vh  <- lapply(grps_c,function(x) gsub("leadtime","valid_hour",x))
     verif_vh <-  get(verif_fn)(
       fcst, prm_name, thresholds = NULL, groupings = grps_vh
     )
@@ -258,11 +260,11 @@ run_verif <- function(prm_info, prm_name) {
 
     # Compute scores for each station for map purposes
     grps_sid  <- lapply(grps_c,function(x) gsub("leadtime","SID",x))
-    # Replace fcst_cycle by validhour
+    # Replace fcst_cycle by valid_hour
     if ("fcst_cycle" %in% grps_sid[[1]]){
-      grps_sid  <- lapply(grps_sid,function(x) gsub("fcst_cycle","validhour",x))
+      grps_sid  <- lapply(grps_sid,function(x) gsub("fcst_cycle","valid_hour",x))
     } else {
-      grps_sid <- list(c("SID","validhour"),"SID")
+      grps_sid <- list(c("SID","valid_hour"),"SID")
       print("Warning: This test script assumes fcst_cycle is one of the grouping variables!")
       print("Now using the following for grps_sid:")
       print(grps_sid)

@@ -5,7 +5,7 @@
 # 4) Scatterplot
 
 fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "station_group",
-                               plot_num_cases = TRUE,cmap = "ggsci",compare_mbr000 = FALSE,mbr_plots = FALSE){
+                               plot_num_cases = TRUE,cmap = "Set2",compare_mbr000 = FALSE,mbr_plots = FALSE){
   
   #=================================================#
   # INITIAL CHECKS 
@@ -59,8 +59,10 @@ fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "stati
   }
 
   # Add in validhour and station group if they do not exist
-  if (!("validhour" %in% fcst_names)){
-    fcst <- mutate(fcst,validhour=substr(YMDh(validdate),9,10))
+  if (!("valid_hour" %in% fcst_names)){
+    #fcst <- mutate(fcst,validhour=substr(YMDh(validdate),9,10))
+    fcst <- expand_date(fcst,validdate)
+    fcst <- mutate_list(fcst,valid_hour = sprintf("%02d",valid_hour))
   }
   if (!(station_group_var %in% fcst_names)){
     fcst <- mutate(fcst,"{station_group_var}" := "All")
@@ -92,12 +94,13 @@ fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "stati
   fd_adjust   <- 1  # Adjust parameter in freq dist plotting
   
   # Scatterplot colormap
-  cmap_rgb    <- c("213,213,213", "195,195,231", "164,164,220", "143,143,204",
-                "42,159,255", "42,205,255", "54,249,235", "163,255,126",
-                "235,255,54", "255,219,42", "255,179,42", "255,137,42",
-                "251,52,42", "199,42,42", "149,42,42", "118,0,248")
-  cmap_hex    <- sapply(strsplit(cmap_rgb, ","), function(x)
-    rgb(x[1], x[2], x[3], maxColorValue=255))
+  #cmap_rgb    <- c("213,213,213", "195,195,231", "164,164,220", "143,143,204",
+  #              "42,159,255", "42,205,255", "54,249,235", "163,255,126",
+  #              "235,255,54", "255,219,42", "255,179,42", "255,137,42",
+  #              "251,52,42", "199,42,42", "149,42,42", "118,0,248")
+  #cmap_hex    <- sapply(strsplit(cmap_rgb, ","), function(x)
+  #  rgb(x[1], x[2], x[3], maxColorValue=255))
+  cmap_hex    <- brewer.pal(12,"Paired") # Something better available?
   scat_bins   <- 50
   
   #=================================================#
@@ -114,15 +117,10 @@ fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "stati
   fig_units <- "in"
   fig_dpi   <- 200
 
-  # Define the colour scheme used in line plots.
-  if (cmap == "ggsci"){
-    cpal         <- pal_jco()(num_models+1) # Add +1 for "OBS"
-    mcolors      <- cpal
-  } else {
-    # Or use standard Brewer palletes
-    cpal         <- brewer.pal(max(num_models+1,3),cmap)
-    mcolors      <- cpal[1:num_models]
-  }
+  # Define the colour scheme used in line plots (using Rcolorbrewer)
+  cpal         <- brewer.pal(max(num_models+1,3),cmap) # Add +1 for "OBS"
+  mcolors      <- cpal[1:(num_models+1)]
+  
   # Define the color table
   names(mcolors) <- c(models_vec,"OBS") 
   
@@ -152,8 +150,8 @@ fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "stati
       legend.position = "none"
     )
   
-  title_str = paste0(str_to_title(param)," : ",format(ymd_h(sdate),"%Y-%m-%d-%H")," - ",
-                     format(ymd_h(edate),"%Y-%m-%d-%H"))
+  title_str = paste0(str_to_title(param)," : ",format(str_datetime_to_datetime(sdate),"%Y-%m-%d-%H")," - ",
+                     format(str_datetime_to_datetime(edate),"%Y-%m-%d-%H"))
   
   fxoption_list <- list("param" = param, "sdate" = sdate, "edate" = edate, "num_models" = num_models, "par_unit" = par_unit,
                         "fw" = fw, "fh" = fh, "mcolors" = mcolors,"line_styles" = line_styles, "line_size" = line_size, 
@@ -221,8 +219,8 @@ fn_plot_aux_scores <- function(fcst_input,png_archive,station_group_var = "stati
         
         # Member scores (not really required)
         if (mbr_plots){
-          group_vars <- c("mname","validhour","member")
-          vroption_list$score <- "mbrdailyvar"; vroption_list$xgroup <- "validhour"; vroption_list$xg_str <- "vh"
+          group_vars <- c("mname","valid_hour","member")
+          vroption_list$score <- "mbrdailyvar"; vroption_list$xgroup <- "valid_hour"; vroption_list$xg_str <- "vh"
           fn_dvar_ts(cc_fcst,group_vars,title_str,subtitle_str,fxoption_list,vroption_list)
           
           group_vars <- c("mname","validdate","member")
@@ -257,8 +255,8 @@ fn_aux <- function(fc,title_str,subtitle_str,fxoption_list,vroption_list){
   }
   
   # Daily Var 
-  group_vars <- c("mname","validhour")
-  vroption_list$xgroup <- "validhour"; vroption_list$score <- paste0(cprefix,"dailyvar"); vroption_list$xg_str <- "vh"
+  group_vars <- c("mname","valid_hour")
+  vroption_list$xgroup <- "valid_hour"; vroption_list$score <- paste0(cprefix,"dailyvar"); vroption_list$xg_str <- "vh"
   fn_dvar_ts(fc,group_vars,title_str,subtitle_str,fxoption_list,vroption_list)
   
   # Timeseries 
@@ -377,6 +375,8 @@ fn_freqdist <- function(fc,title_str,subtitle_str,fxoption_list,vroption_list){
 #================================================#
   
 # Scatterplot
+# TODO: CAN MOVE OVER TO HARP'S PLOT_SCATTER?
+# (HOW TO FACET BY FCST MODEL?)
 #================================================#
 fn_scatterplot <- function(fc,title_str,subtitle_str,fxoption_list,vroption_list){
 
