@@ -27,3 +27,15 @@ Scripts to make plots
 
 ## config_files
 Example config files
+
+# Package dependencies
+The following packages are used here
+- harp
+- purrr
+- argparse
+- yaml
+- shiny
+- lubridate
+- tidyverse (note that parts of this package are included in harp, but not all!)
+- ggsci
+- pracma

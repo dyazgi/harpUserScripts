@@ -15,3 +15,5 @@ END_DATE=2022033123
 #Score cards
 #./create_scorecards.R -config_file $CONFIG -start_date $INI_DATE -end_date $END_DATE
 
+# example with long script
+#./point_verif_local.R -config_file $CONFIG -start_date $INI_DATE -end_date $END_DATE
