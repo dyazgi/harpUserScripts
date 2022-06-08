@@ -46,29 +46,41 @@ ok means available in the UWC-script
 
 Deterministic (for arbitrary station lists):
 scores as function of lead time, ok
+
 scores at stations as maps, ok,  may be issues inside harp det_verify.R (Nina)
+
 scatter plots
+
 scores as functions of valid time, also variables
+
 scores and variables as function of height(presure) (and time?)
+
 daily variation of variables
+
 scores as functio of thresholds, ok 
 
 Spatial verification:
+
 SAL, FSS
 
 Ensembles: keep as is for the time being
 
 Spatial verification:
+
 Degree of agreement, FSS
 
 Tasks:
+
 make available the UWC scripts
+
 Carlos, James
 
 input from grib-files:
+
 Florian
 
 scores as function of lead time, vertical coordinate
+
 Carl
 
 scatter plots
@@ -77,13 +89,16 @@ daily variation
 
 
 spatial verification:
+
 Daniel, Alex, Ahto, Fabiola
 
 code review
+
 Nina, Gema
 
 
 documentation:
+
 everybody to provide documentation for their respective documentation
 
 
