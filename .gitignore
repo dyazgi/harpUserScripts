@@ -2,3 +2,4 @@ renv
 renv.lock
 .Rproj.user
 harpUserScripts.Rproj
+.Rhistory
