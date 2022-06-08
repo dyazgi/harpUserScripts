@@ -1,5 +1,10 @@
+.git  
+.gitignore 
 renv
 renv.lock
-.Rproj.user
 harpUserScripts.Rproj
 .Rhistory
+.RData  
+.Rproj.user 
+.Rprofile  
+
