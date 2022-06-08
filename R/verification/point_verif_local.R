@@ -41,7 +41,7 @@ parser$add_argument("-config_file", type="character",
 # Currently only setting the parameters here
 # set to local and source in plotting scripts
 # NB: Plotting scripts under development and to be used with caution
-source(here("R/set_params.R"))
+source(here("set_params.R"))
 source(here("R/visualization/fn_plot_point_verif.R"))
 source(here("R/visualization/fn_plot_aux_scores.R"))
 source(here("R/visualization/fn_plot_helpers.R"))
