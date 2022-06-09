@@ -3,7 +3,7 @@
 The instructions for installing harp can be found [here](https://harphub.github.io/harp/)
 and in the [2022 tutorial page](https://harphub.github.io/harp-training-2022/about.html).
 
-## Setup your environment
+## Setup your environment (OPTIONAL)
 As described in section 1.5 of this [tutorial](https://harphub.github.io/harp_tutorial),
 it is not a bad idea to isolate your harp installation using the *renv* package. 
 This might be a good idea if you want to test different versions of harp. 
