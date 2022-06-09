@@ -28,8 +28,8 @@ Scripts to make plots
 ## config_files
 Example config files
 
-## sample_data
-Added 2 days of sample data (vfld,vobs)
+## ../data/sample_data
+vfld and vobs for 2 days (for testing)
 
 # Package dependencies
 The following packages are used here
