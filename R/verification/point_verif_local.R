@@ -69,6 +69,8 @@ obs_path   <- CONFIG$verif$obs_path
 verif_path <- CONFIG$verif$verif_path
 grps       <- CONFIG$verif$grps
 plot_output <- CONFIG$post$plot_output #  Load in png archive directory
+#Create the output directory
+dir.create(file.path(plot_output),recursive=TRUE)
 
 # Verif results by leadtime for each fcst_cycle (should be default choice?)
 grps <- list(c("leadtime","fcst_cycle"),"leadtime")
