@@ -21,8 +21,8 @@ renv::snapshot()
 ```
 
 Things to note:
-When using renv with an R script, add this line at the top of the script:
-
+When using renv with an R script, add this line at the top of the script
+(modify for your own path)
 ```
 renv::load("/home/nhd/R/harpUserScripts")
 ```
@@ -30,3 +30,10 @@ See example in R/verification/point_verif.R
 
 Note that by loading the renv environment and using Rscript inside it you might be missing some 
 libraries that are not in the standard R base package loaded by renv.
+
+There is an example `renv.lock` included here for an installation in aa (used nhd).
+Rename it as `renv.lock` in your project directory and then use
+```
+renv::restore()
+```
+in R to reproduce the environment (untested!)
