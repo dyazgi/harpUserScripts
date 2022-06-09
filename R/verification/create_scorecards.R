@@ -61,6 +61,9 @@ plot_output <- CONFIG$post$plot_output
 date_path <- paste0(paste(start_date,end_date,sep="-"))
 dir.create(file.path(fcst_model,date_path),recursive=TRUE)
 pngfile <- paste(paste("scorecards",fcst_model,as.character(start_date),as.character(end_date),sep="_"),".png",sep="")
+
+#Create the output directory
+dir.create(file.path(plot_output),recursive=TRUE)
 savepath <- file.path(plot_output,pngfile)
 
 pooled_by <- "SID"
