@@ -28,6 +28,9 @@ Scripts to make plots
 ## config_files
 Example config files
 
+## sample_data
+Added 2 days of sample data (vfld,vobs)
+
 # Package dependencies
 The following packages are used here
 - harp
