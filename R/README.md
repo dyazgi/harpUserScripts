@@ -28,6 +28,10 @@ Scripts to make plots
 ## config_files
 Example config files
 
+## utils
+A few extra scripts 
+- `pull_dates_sqlite.R`: Print the dates available in an sqlite file. The filename and table name need to be provided as arguments
+
 ## ../data/sample_data
 vfld and vobs for 2 days (for testing)
 
