@@ -6,8 +6,8 @@ shared:
   
 pre:
   fclen: 48
-  vfld_path: "/scratch/ms/ie/duuw/vfld_vobs_sample/vfld"
-  vobs_path: "/scratch/ms/dk/nhd/vfld_vobs_sample/vobs"
+  vfld_path: "/ec/res4/scratch/smcd/harpUserScripts/input/vfld"
+  vobs_path: "/ec/res4/scratch/smcd/harpUserScripts/input/vobs"
   vfld_template:  #include one for each model if they are different. 
     - "vfld"
   params:
@@ -19,7 +19,7 @@ pre:
 verif:
   by_step: "12h"
   fcst_model:
-    - EC9
+    - testmodel
   lead_time: seq(0, 24, 1)
   fcst_type: "det" #det or eps
   grps: "leadtime"
@@ -33,8 +33,8 @@ post:
   rds_path: "/ec/res4/scratch/smcd/verif_rds"
 #This section if only for the scorecards
 scorecards:
-  ref_model: EC9 
-  fcst_model: nea40h11
+  ref_model: testmodel 
+  fcst_model: testmodel
   params: 
     - T2m
     - S10m
